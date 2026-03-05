@@ -17,10 +17,10 @@ Shell (bash, zsh) перехватывает специальные символ
 
 ```bash
 # Вместо
-./program ls -la > out.txt
+./sh ls -la > out.txt
 
 # Нужно писать
-./program ls -la \> out.txt
+./sh ls -la \> out.txt
 ```
 
 ## Примеры использования
