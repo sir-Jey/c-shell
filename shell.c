@@ -57,14 +57,14 @@ static void free_commands(command_info_t *commands, int cmd_count) {
 static int check_help(int argc, char *argv[]) {
     if (argc < 2) {
         fprintf(stderr, "Использование: %s <команда> [аргументы...]\n", argv[0]);
-        return -1;
+        return(-1);
     }
 
     int i;
     for (i=1; i < argc; i++) {
         if (strcmp(argv[i], "-h") == 0 || strcmp(argv[i], "--help") == 0) {
             printf("Использование: %s <команда> [аргументы...]\n",argv[0]);
-            return 0;
+            return(0);
         }
     }
     
