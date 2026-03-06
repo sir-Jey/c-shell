@@ -25,17 +25,6 @@ typedef struct {
     int background;   
 } command_info_t;
 
-/*  
-    * будет добавлено: 
-    *   приглашение ввода с текущим именем пользователя и текущей директорией (пример: alex@SHELL:/home/alex/ -> )
-    *   история команд
-    *   красивый вывод --help
-    *   файл конфигурации .shellrc
-    *   логирование 
-*/  
-
-/* где указано '~' означает в коде ТРЕБУЕТСЯ РЕФАКТОРИНГ */
-
 static void print_argvs(command_info_t commands[], int cmd_count)  /* for debug */
 {   
     printf("ARGVS\n");
@@ -340,12 +329,12 @@ static int exec_single(command_info_t commands)
             if (commands.output_append) {
                 if ((fd = open(commands.output_file, O_WRONLY | O_CREAT | O_APPEND, 0666)) < 0) {
                     perror("open");
-                    exit(1); // ~ (улучшить обработку ошибок. не выходить тут же с кодом ошибки 1)
+                    exit(1);
                 }
             } else {
                 if ((fd = open(commands.output_file, O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 0) {
                     perror("open");
-                    exit(1); // ~ (аналогично)
+                    exit(1);
                 }
             }
             dup2(fd, STDOUT_FILENO);
@@ -356,12 +345,12 @@ static int exec_single(command_info_t commands)
             if (commands.error_append) {
                 if ((fd = open(commands.error_file, O_WRONLY | O_CREAT | O_APPEND, 0666)) < 0) {
                     perror("open");
-                    exit(1); // ~
+                    exit(1); 
                 }
             } else {
                 if ((fd = open(commands.error_file, O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 0) {
                     perror("open");
-                    exit(1); // ~ 
+                    exit(1); 
                 }
             }
             dup2(fd, STDERR_FILENO);
@@ -473,12 +462,12 @@ static int exec_pipeline(command_info_t *commands, int cmd_count)
                 if (commands[cmd_count-1].output_append) {
                     if ((fd = open(commands[cmd_count-1].output_file, O_WRONLY, O_CREAT | O_APPEND)) < 0){
                         perror("open");
-                        exit(1); // ~
+                        exit(1);
                     }
                 } else {
                     if ((fd = open(commands[cmd_count-1].output_file, O_WRONLY | O_CREAT | O_TRUNC, 0666)) <0) {
                         perror("open");
-                        exit(1); // ~ 
+                        exit(1);  
                     }
                 }
                 dup2(fd, STDOUT_FILENO);
@@ -489,12 +478,12 @@ static int exec_pipeline(command_info_t *commands, int cmd_count)
                 if (commands[cmd_count-1].error_append) {
                     if ((fd = open(commands[cmd_count-1].error_file, O_WRONLY | O_CREAT | O_APPEND, 0666)) < 0) {
                         perror("open");
-                        exit(1); // ~
+                        exit(1);
                     }
                 } else {
                     if ((fd = open(commands[cmd_count-1].error_file, O_WRONLY | O_CREAT | O_TRUNC, 0666)) < 0) {
                         perror("open");
-                        exit(1); // ~ 
+                        exit(1);  
                     }
                 }
                 dup2(fd, STDERR_FILENO);
