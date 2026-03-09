@@ -540,16 +540,18 @@ static int exec_pipeline(command_info_t *commands, int cmd_count)
 int exec_commands(char *argv[], int start, int end)
 {
     command_info_t commands[MAX_COMMANDS];
-
     int background = 0;
+    int len_argv = end-start+1;
+    int cmd_count;
+    int exit_code;
+    
     if (end >= start && strcmp(argv[end], "&") == 0)
     {
         background = BACKGROUND_ENABLED;
         -- end;
     }
 
-    int len_argv = end-start+1;
-    int cmd_count = parse_commands(len_argv, &argv[start], commands);
+    cmd_count = parse_commands(len_argv, &argv[start], commands);
     
     if (cmd_count == -1)
         exit(EX_OSERR);
@@ -559,7 +561,6 @@ int exec_commands(char *argv[], int start, int end)
             commands[i].background = BACKGROUND_ENABLED;
     } 
 
-    int exit_code;
     if (cmd_count == 1)
     {
         exit_code = exec_single(commands[0]);
