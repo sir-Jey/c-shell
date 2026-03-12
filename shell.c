@@ -536,7 +536,7 @@ static int exec_pipeline(command_info_t *commands, int cmd_count)
     return exit_code;
 }
 
-int exec_commands(char *argv[], int start, int end)
+static int exec_commands(char *argv[], int start, int end)
 {
     command_info_t commands[MAX_COMMANDS];
     int background = 0;
